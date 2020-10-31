@@ -1,5 +1,4 @@
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -9,9 +8,13 @@
 #define BASE10 10                                         //Constante de la base 10
 #define BASE16 16                                         //Constante de la base 16
 
-
+//Recibe un string y n-parametros. Imprime el string con los valores pasados por parametros leyendo los especificadores del texto.
 void mi_printf(char* texto, ...);
+
+//Calcula el modulo de num
 int mod(int num);
+
+//Convierte un numero en la base indicada a string, funciona para base10 y base16
 int toString(unsigned int num, char* buffer, int i, int base);
 
 //2147483647 max positivo signado
@@ -44,7 +47,7 @@ void mi_printf(char* texto, ...){
     //Creamos y cargamos el puntero a la lista de argumentos variables
     va_list listaParam;
     va_start(listaParam, texto);
-
+    
    
     while(texto[i] != '\0'){    //Mientras no se haya recorrido todo el string
         
@@ -80,8 +83,8 @@ void mi_printf(char* texto, ...){
                     
                 case 'c':
                     
-                    nextChar = va_arg(listaParam, int); 
-                    putchar(nextChar);  //Imprimimos el caracter
+                    nextChar = va_arg(listaParam, int);                     //Leemos la siguiente variable de la lista
+                    putchar(nextChar);                                      //Imprimimos el caracter
                     break;
                     
                 default:
@@ -97,6 +100,11 @@ void mi_printf(char* texto, ...){
     }
 }
 
+/*
+ * toString: La funcion recibe por parametros, un numero a convertir a string sin el terminador, un buffer para almacenar
+ * el string resultante, un indice para almacenar los elementos y un entero que indica la base a la cual se quiere
+ * convertir el numero. Devuelve el largo de la cadena obtenida.
+ */
 int toString(unsigned int num, char* buffer, int i, int base){
     if(num < base){
         buffer[i++] = NUMTOCHAR(num%base);
@@ -108,6 +116,9 @@ int toString(unsigned int num, char* buffer, int i, int base){
     }
 }
 
+/*
+ * La funcion recibe un entero, realiza la funcion modulo y devuelve el numero obtenido.
+ */
 int mod(int num){
     if(num < 0){
         num = -num;
